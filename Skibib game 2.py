@@ -30,7 +30,7 @@ class ClickerGame:
         self.cost_per_upgrade4 = 50000
         self.cost_per_upgrade5 = 250000
         self.auto_clicker_cost = 1000000
-        self.auto_clicker_rate = 1000  # Auto-clicker speed in milliseconds
+        self.auto_clicker_rate = 10  # Auto-clicker speed in milliseconds
         self.auto_clicker_active = False
         self.last_auto_click_time = 0
 
