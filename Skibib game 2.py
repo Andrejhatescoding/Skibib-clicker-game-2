@@ -1,5 +1,6 @@
 import pygame
 import time
+import random  # We'll need random for the gambling feature
 
 # Initialize pygame
 pygame.init()
@@ -41,7 +42,8 @@ class ClickerGame:
             "upgrade_button3": pygame.Rect(200, 280, 300, 50),
             "upgrade_button4": pygame.Rect(200, 340, 300, 50),
             "upgrade_button5": pygame.Rect(200, 400, 300, 50),
-            "auto_clicker_button": pygame.Rect(200, 460, 300, 50)
+            "auto_clicker_button": pygame.Rect(200, 460, 300, 50),
+            "gambling_button": pygame.Rect(200, 520, 300, 50)  # Gambling button
         }
 
     def draw_text(self, text, x, y, color=BLACK):
@@ -56,6 +58,7 @@ class ClickerGame:
         pygame.draw.rect(screen, BLUE, self.buttons["upgrade_button4"])
         pygame.draw.rect(screen, BLUE, self.buttons["upgrade_button5"])
         pygame.draw.rect(screen, BLUE, self.buttons["auto_clicker_button"])
+        pygame.draw.rect(screen, BLUE, self.buttons["gambling_button"])
 
         self.draw_text("Click Me!", 250, 115, WHITE)
         self.draw_text(f"Upgrade (Cost: {self.cost_per_upgrade})", 220, 175, WHITE)
@@ -64,6 +67,7 @@ class ClickerGame:
         self.draw_text(f"Upgrade (Cost: {self.cost_per_upgrade4})", 220, 355, WHITE)
         self.draw_text(f"Upgrade (Cost: {self.cost_per_upgrade5})", 220, 415, WHITE)
         self.draw_text(f"Activate Auto-Clicker (Cost: {self.auto_clicker_cost})", 150, 475, WHITE)
+        self.draw_text("Gamble (30% to double score, 70% to lose everything)", 100, 535, WHITE)
 
     def increase_score(self):
         self.score += self.score_per_click
@@ -112,6 +116,14 @@ class ClickerGame:
     def draw_score(self):
         self.draw_text(f"Score: {self.score}", 250, 40, WHITE)
 
+    def gamble(self):
+        if self.score > 0:  # Player should have some score to gamble
+            gamble_result = random.random()  # Generates a float between 0.0 and 1.0
+            if gamble_result <= 0.30:  # 30% chance
+                self.score *= 2  # Double the total score
+            else:  # 70% chance
+                self.score = 0  # Lose everything
+
 # Initialize game
 game = ClickerGame()
 
@@ -142,6 +154,8 @@ while running:
                 game.buy_upgrade5()
             elif game.buttons["auto_clicker_button"].collidepoint(mouse_x, mouse_y):
                 game.activate_auto_clicker()
+            elif game.buttons["gambling_button"].collidepoint(mouse_x, mouse_y):
+                game.gamble()
 
     # Handle auto-clicker
     game.start_auto_clicker()
