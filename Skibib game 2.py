@@ -67,7 +67,7 @@ class ClickerGame:
         self.draw_text(f"Upgrade (Cost: {self.cost_per_upgrade4})", 220, 355, WHITE)
         self.draw_text(f"Upgrade (Cost: {self.cost_per_upgrade5})", 220, 415, WHITE)
         self.draw_text(f"Activate Auto-Clicker (Cost: {self.auto_clicker_cost})", 150, 475, WHITE)
-        self.draw_text("Gamble (30% to double score, 70% to lose everything)", 100, 535, WHITE)
+        self.draw_text("                         Gamble all!", 100, 535, WHITE)
 
     def increase_score(self):
         self.score += self.score_per_click
